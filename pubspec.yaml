@@ -1,8 +1,7 @@
 name: floating_pullup_card
 description: A new Flutter package project.
-version: 0.0.1
-author:
-homepage:
+version: 0.1.1
+homepage: https://github.com/victorevox/floating_pullup_card
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
