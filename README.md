@@ -17,7 +17,7 @@ dependencies:
 You can get started really simple, just add
 
 <img src="https://raw.githubusercontent.com/victorevox/floating_pullup_card/master/example/basic_collapsed.png" align = "right" height = "350" alt="Basic Collapsed">
-<img src="https://raw.githubusercontent.com/victorevox/built_tab_navigator/master/example/basic_uncollapsed.png" align = "right" height = "350" alt="Basic Uncollapsed" style="margin-left: 10px;">
+<img src="https://raw.githubusercontent.com/victorevox/floating_pullup_card/master/example/basic_uncollapsed.png" align = "right" height = "350" alt="Basic Uncollapsed" style="margin-left: 10px;">
 
 
 ```dart
@@ -45,8 +45,8 @@ where `body` is a Widget that is nested inside the card and `child` is the main 
 
 You can highly customize by defining custom builders, or properties as `width` , `height`, `color`, etc
 
-<img src="https://raw.githubusercontent.com/victorevox/floating_pullup_card/master/example/advanced_collapsed.png" align = "right" height = "350" alt="Advanced Collapsed">
-<img src="https://raw.githubusercontent.com/victorevox/built_tab_navigator/master/example/advanced_uncollapsed.png" align = "right" height = "350" alt="Advanced Uncollapsed" style="margin-left: 10px;">
+<img src="https://raw.githubusercontent.com/victorevox/floating_pullup_card/master/example/advanced_collapse.png" align = "right" height = "350" alt="Advanced Collapsed">
+<img src="https://raw.githubusercontent.com/victorevox/floating_pullup_card/master/example/advanced_uncollapsed.png" align = "right" height = "350" alt="Advanced Uncollapsed" style="margin-left: 10px;">
 
 ```dart
 
