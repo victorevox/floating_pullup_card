@@ -1,4 +1,5 @@
 {
     "licenser.author": "Victor Heredia",
-    "licenser.license": "MIT"
+    "licenser.license": "MIT",
+    "licenser.disableAutoHeaderInsertion": true,
 }

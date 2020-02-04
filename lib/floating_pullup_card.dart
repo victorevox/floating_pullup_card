@@ -1,7 +1,4 @@
 library floating_pullup_card;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'pullup_card.dart';
+export 'floating_layout.dart';
