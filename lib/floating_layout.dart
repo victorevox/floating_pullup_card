@@ -250,8 +250,8 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
                     ? (maxHeight - _stateOffsets[_currentState])
                     : 0
             : 0;
-        print(
-            "beyondCollapseStateOffset: $beyondCollapseStateOffset, bottomPadding: $bottomPadding, currentState: $_currentState");
+        // print(
+        //     "beyondCollapseStateOffset: $beyondCollapseStateOffset, bottomPadding: $bottomPadding, currentState: $_currentState");
         return Stack(
           alignment: AlignmentDirectional.center,
           children: <Widget>[

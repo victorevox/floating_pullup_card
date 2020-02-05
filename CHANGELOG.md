@@ -1,3 +1,7 @@
+## [0.1.2] - 4/02/20.
+
+* Removed debug code
+
 ## [0.1.1] - 4/02/20.
 
 * Added example.
