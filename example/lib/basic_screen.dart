@@ -13,9 +13,20 @@ class BasicScreen extends StatelessWidget {
         title: Text("basic"),
       ),
       body: FloatingPullUpCardLayout(
+        onOutsideTap: () {
+          return FloatingPullUpState.collapsed;
+        },
         child: Container(
           decoration: BoxDecoration(color: Colors.purple[100]),
-          child: Placeholder(),
+          child: Center(
+            child: MaterialButton(
+              color: Colors.orange,
+              onPressed: () {
+                print("hello");
+              },
+              child: Text("tap!"),
+            ),
+          ),
         ),
         body: Column(
           children: <Widget>[

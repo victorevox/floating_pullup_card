@@ -1,14 +1,10 @@
-import 'dart:math';
+library floating_layout;
 
 import 'package:floating_pullup_card/animated_translate.dart';
 import 'package:floating_pullup_card/floating_pullup_card.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-enum FloatingPullUpState { collapsed, hidden, uncollapsed }
-
-typedef StateOffsetFunction = double Function(
-    double maxHeight, double cardHeight);
+part 'types.dart';
 
 class FloatingPullUpCardLayout extends StatefulWidget {
   /// The [Widget] to be used as the content of the main layout, not the card content
@@ -63,17 +59,22 @@ class FloatingPullUpCardLayout extends StatefulWidget {
   /// defaults to [true]
   final autoPadding;
 
-  /// Sets a custom function that return a custom [y] [offset] for state [FloatingPullUpState.collapsed]
+  /// Sets a custom function that return a custom `Y Offset`  for state [FloatingPullUpState.collapsed]
   /// Please take into account that offset start from top to bottom
   StateOffsetFunction collpsedStateOffset;
 
-  /// Sets a custom function that return a custom [y] [offset] for state [FloatingPullUpState.hidden]
+  /// Sets a custom function that return a custom `Y Offset`  for state [FloatingPullUpState.hidden]
   /// Please take into account that offset start from top to bottom
   StateOffsetFunction hiddenStateOffset;
 
-  /// Sets a custom function that return a custom [y] [offset] for state [FloatingPullUpState.uncollapsed]
+  /// Sets a custom function that return a custom `Y Offset`  for state [FloatingPullUpState.uncollapsed]
   /// Please take into account that offset start from top to bottom
   StateOffsetFunction uncollpsedStateOffset;
+
+  /// Defines a callback to be called when a user taps outside the card
+  /// If function returns [FloatingPullUpState] it will change state to the returned one
+  /// Take into account that this is not getting called if a widget inside body is already handling a `Gesture` 
+  final FloatingPullUpState Function() onOutsideTap;
 
   FloatingPullUpCardLayout({
     Key key,
@@ -96,6 +97,7 @@ class FloatingPullUpCardLayout extends StatefulWidget {
     this.hiddenStateOffset,
     this.uncollpsedStateOffset,
     this.autoPadding = true,
+    this.onOutsideTap,
   }) : super(key: key) {
     this.collpsedStateOffset =
         this.collpsedStateOffset ?? this._defaultCollpsedStateOffset;
@@ -255,15 +257,46 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
         return Stack(
           alignment: AlignmentDirectional.center,
           children: <Widget>[
-            Container(
-              // width: maxWidth,
-              // decoration: BoxDecoration(color: Colors.red),
-              padding: EdgeInsets.only(
-                bottom: bottomPadding,
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: (){
+                if(widget.onOutsideTap != null) {
+                  final FloatingPullUpState res = widget.onOutsideTap();
+                  if(res != null) {
+                    setState(() {
+                      _setStateOffset(res);
+                    });
+                  }
+                }
+              },
+              child: Container(
+                // width: maxWidth,
+                // decoration: BoxDecoration(color: Colors.red),
+                padding: EdgeInsets.only(
+                  bottom: bottomPadding,
+                ),
+                constraints: constraints,
+                child: widget.child,
               ),
-              constraints: constraints,
-              child: widget.child,
             ),
+            // Positioned(
+            //   top: 0,
+            //   bottom: 0,
+            //   left: 0,
+            //   child: GestureDetector(
+            //     behavior: HitTestBehavior.deferToChild,
+            //     onTap: () {
+            //       print("touched");
+            //     },
+            //     child: Container(
+            //       width: constraints.maxWidth,
+            //       height: constraints.maxHeight,
+            //       decoration: BoxDecoration(
+            //         color: Color(0x00000000),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Positioned(
               top: 0,
               child: AnimatedTranslation(

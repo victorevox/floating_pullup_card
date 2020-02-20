@@ -141,17 +141,22 @@ For more info, please check the demo provided *:)*
   /// defaults to [true]
   final autoPadding;
 
-  /// Sets a custom function that return a custom [y] [offset] for state [FloatingPullUpState.collapsed]
+  /// Sets a custom function that return a custom `Y Offset`  for state [FloatingPullUpState.collapsed]
   /// Please take into account that offset start from top to bottom
   StateOffsetFunction collpsedStateOffset;
 
-  /// Sets a custom function that return a custom [y] [offset] for state [FloatingPullUpState.hidden]
+  /// Sets a custom function that return a custom `Y Offset`  for state [FloatingPullUpState.hidden]
   /// Please take into account that offset start from top to bottom
   StateOffsetFunction hiddenStateOffset;
 
-  /// Sets a custom function that return a custom [y] [offset] for state [FloatingPullUpState.uncollapsed]
+  /// Sets a custom function that return a custom `Y Offset`  for state [FloatingPullUpState.uncollapsed]
   /// Please take into account that offset start from top to bottom
   StateOffsetFunction uncollpsedStateOffset;
+
+  /// Defines a callback to be called when a user taps outside the card
+  /// If function returns [FloatingPullUpState] it will change state to the returned one
+  /// Take into account that this is not getting called if a widget inside body is already handling a `Gesture` 
+  final FloatingPullUpState Function() onOutsideTap;
 ```
 
 ## More Screenshots
