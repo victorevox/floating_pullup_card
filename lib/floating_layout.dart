@@ -1,10 +1,8 @@
-library floating_layout;
-
 import 'package:floating_pullup_card/animated_translate.dart';
 import 'package:floating_pullup_card/floating_pullup_card.dart';
 import 'package:flutter/widgets.dart';
+import 'types.dart';
 
-part 'types.dart';
 
 class FloatingPullUpCardLayout extends StatefulWidget {
   /// The [Widget] to be used as the content of the main layout, not the card content

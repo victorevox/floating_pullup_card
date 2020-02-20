@@ -1,3 +1,7 @@
+## [0.1.4] - 20/03/20.
+
+* Fix some imports
+
 ## [0.1.3] - 20/03/20.
 
 * Added new [onOutsideTap] property which defines a callback for outside card `tap` gestures, it also can make the state change if returning [FloatingPullUpState]
