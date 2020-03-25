@@ -17,6 +17,7 @@ class _AdvancedScreenState extends State<AdvancedScreen> {
   bool _customCard = false;
   bool _customCollapsedOffset = false;
   bool _autoPadd = true;
+  bool _withOverlay = true;
 
   @override
   void initState() {
@@ -37,6 +38,7 @@ class _AdvancedScreenState extends State<AdvancedScreen> {
         collpsedStateOffset:
             _customCollapsedOffset ? (maxHeight, _) => maxHeight * .75 : null,
         autoPadding: _autoPadd,
+        withOverlay: _withOverlay,
         body: Container(
           // padding: EdgeInsets.all(16),
           child: SingleChildScrollView(
@@ -267,11 +269,30 @@ class _AdvancedScreenState extends State<AdvancedScreen> {
                           color: Colors.blue,
                           child: Text(
                             "Autopadding: $_autoPadd",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                           onPressed: () {
                             setState(() {
                               _autoPadd = !_autoPadd;
+                            });
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      Expanded(
+                        child: RaisedButton(
+                          color: Colors.blue,
+                          child: Text(
+                            "WithOverlay: $_withOverlay",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _withOverlay = !_withOverlay;
                             });
                           },
                         ),

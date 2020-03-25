@@ -1,3 +1,7 @@
+## [0.1.5] - 25/03/20.
+
+* Added Overlay capablity
+
 ## [0.1.4] - 20/03/20.
 
 * Fix some imports

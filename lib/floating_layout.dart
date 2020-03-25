@@ -1,8 +1,9 @@
+import 'package:flutter/widgets.dart';
+
 import 'package:floating_pullup_card/animated_translate.dart';
 import 'package:floating_pullup_card/floating_pullup_card.dart';
-import 'package:flutter/widgets.dart';
-import 'types.dart';
 
+import 'types.dart';
 
 class FloatingPullUpCardLayout extends StatefulWidget {
   /// The [Widget] to be used as the content of the main layout, not the card content
@@ -71,8 +72,15 @@ class FloatingPullUpCardLayout extends StatefulWidget {
 
   /// Defines a callback to be called when a user taps outside the card
   /// If function returns [FloatingPullUpState] it will change state to the returned one
-  /// Take into account that this is not getting called if a widget inside body is already handling a `Gesture` 
+  /// Take into account that this is not getting called if a widget inside body is already handling a `Gesture`
   final FloatingPullUpState Function() onOutsideTap;
+
+  /// If true, this will show an overlay behind the card tht obscures content behind
+  /// Defaults to[false]
+  final bool withOverlay;
+
+  /// Defines the `color` of the overlay , this only takes effect of [withOverlayOption] is true
+  final Color overlayColor;
 
   FloatingPullUpCardLayout({
     Key key,
@@ -96,6 +104,8 @@ class FloatingPullUpCardLayout extends StatefulWidget {
     this.uncollpsedStateOffset,
     this.autoPadding = true,
     this.onOutsideTap,
+    this.withOverlay = false,
+    this.overlayColor = const Color(0x66000000),
   }) : super(key: key) {
     this.collpsedStateOffset =
         this.collpsedStateOffset ?? this._defaultCollpsedStateOffset;
@@ -257,10 +267,10 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
           children: <Widget>[
             GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: (){
-                if(widget.onOutsideTap != null) {
+              onTap: () {
+                if (widget.onOutsideTap != null) {
                   final FloatingPullUpState res = widget.onOutsideTap();
-                  if(res != null) {
+                  if (res != null) {
                     setState(() {
                       _setStateOffset(res);
                     });
@@ -277,24 +287,17 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
                 child: widget.child,
               ),
             ),
-            // Positioned(
-            //   top: 0,
-            //   bottom: 0,
-            //   left: 0,
-            //   child: GestureDetector(
-            //     behavior: HitTestBehavior.deferToChild,
-            //     onTap: () {
-            //       print("touched");
-            //     },
-            //     child: Container(
-            //       width: constraints.maxWidth,
-            //       height: constraints.maxHeight,
-            //       decoration: BoxDecoration(
-            //         color: Color(0x00000000),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            Positioned(
+              top: 0,
+              bottom: 0,
+              left: 0,
+              child: AnimatedOverlay(
+                show: _currentState == FloatingPullUpState.uncollapsed &&
+                    widget.withOverlay,
+                constraints: constraints,
+                color: widget.overlayColor,
+              ),
+            ),
             Positioned(
               top: 0,
               child: AnimatedTranslation(
@@ -316,6 +319,73 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
     if (widget.onStateChange != null) {
       widget.onStateChange(_currentState);
     }
+  }
+}
+
+class AnimatedOverlay extends StatefulWidget {
+  final BoxConstraints constraints;
+  final bool show;
+  final Color color;
+
+  const AnimatedOverlay({
+    Key key,
+    @required this.constraints,
+    @required this.show,
+    this.color = const Color(0x66000000),
+  }) : super(key: key);
+
+  @override
+  _AnimatedOverlayState createState() => _AnimatedOverlayState();
+}
+
+class _AnimatedOverlayState extends State<AnimatedOverlay> {
+  bool _init = false;
+  bool _animationEnd = true;
+
+  @override
+  void initState() {
+    // s
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(AnimatedOverlay oldWidget) {
+    if (oldWidget.show != widget.show) {
+      _animationEnd = false;
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if(!_init && widget.show) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        setState(() {
+          _init = true;
+        });
+      });
+    }
+    return _animationEnd && !widget.show
+        ? SizedBox()
+        : AnimatedContainer(
+            curve: Curves.fastOutSlowIn,
+            onEnd: () {
+              // if(_animationEnd && _init) {
+                setState(() {
+                  _animationEnd = true;
+                  if(!widget.show) {
+                    _init = false;
+                  }
+                });
+              // }
+            },
+            duration: Duration(milliseconds: 600),
+            width: widget.constraints.maxWidth,
+            height: widget.constraints.maxHeight,
+            color: !_init || !widget.show
+                ? const Color(0x00000000)
+                : widget.color,
+          );
   }
 }
 
