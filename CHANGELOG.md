@@ -1,3 +1,7 @@
+## [0.1.6] - 26/03/20.
+
+* Improvements, fix function reference comparation when looking for widget update
+
 ## [0.1.5] - 25/03/20.
 
 * Added Overlay capablity

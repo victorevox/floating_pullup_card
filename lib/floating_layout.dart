@@ -168,7 +168,9 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
   void didUpdateWidget(FloatingPullUpCardLayout oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.state != widget.state && widget.state != null ||
-        oldWidget.collpsedStateOffset != widget.collpsedStateOffset) {
+        oldWidget.collpsedStateOffset != null &&
+            oldWidget.collpsedStateOffset(2, 1) !=
+                widget.collpsedStateOffset(2, 1)) {
       _currentState = widget.state;
       _setStateOffset(widget.state);
     }
@@ -358,7 +360,7 @@ class _AnimatedOverlayState extends State<AnimatedOverlay> {
 
   @override
   Widget build(BuildContext context) {
-    if(!_init && widget.show) {
+    if (!_init && widget.show) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         setState(() {
           _init = true;
@@ -371,20 +373,19 @@ class _AnimatedOverlayState extends State<AnimatedOverlay> {
             curve: Curves.fastOutSlowIn,
             onEnd: () {
               // if(_animationEnd && _init) {
-                setState(() {
-                  _animationEnd = true;
-                  if(!widget.show) {
-                    _init = false;
-                  }
-                });
+              setState(() {
+                _animationEnd = true;
+                if (!widget.show) {
+                  _init = false;
+                }
+              });
               // }
             },
             duration: Duration(milliseconds: 600),
             width: widget.constraints.maxWidth,
             height: widget.constraints.maxHeight,
-            color: !_init || !widget.show
-                ? const Color(0x00000000)
-                : widget.color,
+            color:
+                !_init || !widget.show ? const Color(0x00000000) : widget.color,
           );
   }
 }
