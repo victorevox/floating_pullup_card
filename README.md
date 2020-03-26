@@ -155,8 +155,15 @@ For more info, please check the demo provided *:)*
 
   /// Defines a callback to be called when a user taps outside the card
   /// If function returns [FloatingPullUpState] it will change state to the returned one
-  /// Take into account that this is not getting called if a widget inside body is already handling a `Gesture` 
+  /// Take into account that this is not getting called if a widget inside body is already handling a `Gesture`
   final FloatingPullUpState Function() onOutsideTap;
+
+  /// If true, this will show an overlay behind the card tht obscures content behind
+  /// Defaults to[false]
+  final bool withOverlay;
+
+  /// Defines the `color` of the overlay , this only takes effect of [withOverlayOption] is true
+  final Color overlayColor;
 ```
 
 ## More Screenshots
