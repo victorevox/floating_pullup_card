@@ -1,3 +1,7 @@
+## [0.1.7] - 03/03/20.
+
+* Fix initial transition from Offset 0 to CallapsedOffset
+
 ## [0.1.6] - 26/03/20.
 
 * Improvements, fix function reference comparation when looking for widget update

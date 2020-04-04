@@ -144,6 +144,7 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
   double _currentOffset;
   Widget _cardWidget;
   bool _beingDragged = false;
+  bool _firstStateSet = false;
 
   Map<FloatingPullUpState, double> _stateOffsets;
   FloatingPullUpState _currentState;
@@ -151,7 +152,7 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
   @override
   void initState() {
     super.initState();
-    _currentOffset = 0;
+    // _currentOffset;
     if (widget.state == null) {
       _currentState = FloatingPullUpState.collapsed;
     } else {
@@ -160,6 +161,11 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         _setStateOffset(_currentState);
+        _firstStateSet = true;
+        // Future.delayed(Duration(milliseconds: 250)).then((_) {
+        //   setState(() {
+        //   });
+        // });
       });
     });
   }
@@ -233,6 +239,9 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
 
   @override
   Widget build(BuildContext context) {
+    if (_currentOffset == null) {
+      _currentOffset = MediaQuery.of(context).size.height;
+    }
     return LayoutBuilder(
       builder: (context, constraints) {
         final double maxWidth =
@@ -306,7 +315,11 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
                 curve: Curves.decelerate,
                 duration: Duration(milliseconds: 350),
                 offset: _currentOffset,
-                child: _cardWidget,
+                child: AnimatedOpacity(
+                  duration: Duration(milliseconds: 280),
+                  opacity: _firstStateSet ? 1 : 0,
+                  child: _cardWidget,
+                ),
               ),
             ),
           ],
