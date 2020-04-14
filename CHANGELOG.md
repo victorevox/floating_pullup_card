@@ -1,3 +1,7 @@
+## [0.1.9] - 14/04/20.
+
+* Fixes
+
 ## [0.1.8] - 14/04/20.
 
 * Reset state offset when screen constraints changes
