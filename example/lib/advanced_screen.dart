@@ -1,4 +1,5 @@
 import 'package:floating_pullup_card/floating_pullup_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_placeholder_textlines/placeholder_lines.dart';
@@ -71,6 +72,10 @@ class _AdvancedScreenState extends State<AdvancedScreen> {
                   color: Colors.orange,
                   count: 8,
                   align: TextAlign.center,
+                ),
+                CupertinoTextField(),
+                SizedBox(
+                  height: 10,
                 ),
               ],
             ),
@@ -280,7 +285,9 @@ class _AdvancedScreenState extends State<AdvancedScreen> {
                           },
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Expanded(
                         child: RaisedButton(
                           color: Colors.blue,

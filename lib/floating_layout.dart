@@ -146,6 +146,8 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
   bool _beingDragged = false;
   bool _firstStateSet = false;
 
+  BoxConstraints _latestConstraints;
+
   Map<FloatingPullUpState, double> _stateOffsets;
   FloatingPullUpState _currentState;
 
@@ -244,6 +246,16 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
     }
     return LayoutBuilder(
       builder: (context, constraints) {
+        if(_latestConstraints != null && (_latestConstraints.maxHeight != constraints.maxHeight || _latestConstraints.maxWidth != constraints.maxWidth)) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if(mounted) {
+              setState(() {
+                _setStateOffset(_currentState);
+              });
+            }
+          });
+        }
+        _latestConstraints = constraints;
         final double maxWidth =
             _getMaxWidthFromConstraintsOrContext(context, constraints);
         final double maxHeight =
