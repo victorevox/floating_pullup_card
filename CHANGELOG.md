@@ -1,3 +1,7 @@
+## [0.1.8] - 14/04/20.
+
+* Reset state offset when screen constraints changes
+
 ## [0.1.7] - 03/03/20.
 
 * Fix initial transition from Offset 0 to CallapsedOffset
