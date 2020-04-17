@@ -1,3 +1,7 @@
+## [0.2.0] - 17/04/20.
+
+* Improve the way widget was comparing state changes on paramchanges
+
 ## [0.1.9] - 14/04/20.
 
 * Fixes
