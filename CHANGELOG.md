@@ -1,6 +1,10 @@
-## [0.1.10] - 17/04/20.
+## [0.2.1] - 17/04/20.
 
 * Fixes
+  
+## [0.2.0] - 17/04/20.
+
+* Improve the way widget was comparing state changes on paramchanges
 
 ## [0.1.9] - 14/04/20.
 

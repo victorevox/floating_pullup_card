@@ -179,7 +179,7 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
   @override
   void didUpdateWidget(FloatingPullUpCardLayout oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.state != widget.state && widget.state != null ||
+    if (_currentState != widget.state && widget.state != null ||
         oldWidget.collpsedStateOffset != null &&
             oldWidget.collpsedStateOffset(2, 1) !=
                 widget.collpsedStateOffset(2, 1)) {
