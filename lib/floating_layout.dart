@@ -99,26 +99,30 @@ class FloatingPullUpCardLayout extends StatefulWidget {
       topLeft: Radius.circular(16),
       topRight: Radius.circular(16),
     ),
-    this.collpsedStateOffset,
-    this.hiddenStateOffset,
-    this.uncollpsedStateOffset,
+    StateOffsetFunction collpsedStateOffset,
+    StateOffsetFunction hiddenStateOffset,
+    StateOffsetFunction uncollpsedStateOffset,
     this.autoPadding = true,
     this.onOutsideTap,
     this.withOverlay = false,
     this.overlayColor = const Color(0x66000000),
   }) : super(key: key) {
     this.collpsedStateOffset =
-        this.collpsedStateOffset ?? this._defaultCollpsedStateOffset;
+        collpsedStateOffset ?? this._defaultCollpsedStateOffset;
     this.hiddenStateOffset =
-        this.hiddenStateOffset ?? this._defaultHiddenStateOffset;
+        hiddenStateOffset ?? this._defaultHiddenStateOffset;
     this.uncollpsedStateOffset =
-        this.uncollpsedStateOffset ?? this._defaultUncollapsedStateOffset;
-    final double maxHeightTest = 10;
-    final double cardHeightTest = 8;
-    assert(uncollpsedStateOffset(maxHeightTest, cardHeightTest) <
-            collpsedStateOffset(maxHeightTest, cardHeightTest) &&
-        collpsedStateOffset(maxHeightTest, cardHeightTest) <
-            hiddenStateOffset(maxHeightTest, cardHeightTest));
+        uncollpsedStateOffset ?? this._defaultUncollapsedStateOffset;
+    final double maxHeightTest = 10000;
+    final double cardHeightTest = 8000;
+    assert(
+      this.uncollpsedStateOffset(maxHeightTest, cardHeightTest) <
+          this.collpsedStateOffset(maxHeightTest, cardHeightTest),
+    );
+    assert(
+      this.collpsedStateOffset(maxHeightTest, cardHeightTest) <
+          this.hiddenStateOffset(maxHeightTest, cardHeightTest),
+    );
   }
 
   final StateOffsetFunction _defaultCollpsedStateOffset =
@@ -246,9 +250,11 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
     }
     return LayoutBuilder(
       builder: (context, constraints) {
-        if(_latestConstraints != null && (_latestConstraints.maxHeight != constraints.maxHeight || _latestConstraints.maxWidth != constraints.maxWidth)) {
+        if (_latestConstraints != null &&
+            (_latestConstraints.maxHeight != constraints.maxHeight ||
+                _latestConstraints.maxWidth != constraints.maxWidth)) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            if(mounted) {
+            if (mounted) {
               setState(() {
                 _setStateOffset(_currentState);
               });
