@@ -1,3 +1,7 @@
+## [0.2.2] - 10/06/20.
+
+* Improve custom uncollapsed function, now card height is calculated based on uncollapsed offset function
+
 ## [0.2.1] - 17/04/20.
 
 * Fixes

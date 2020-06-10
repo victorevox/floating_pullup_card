@@ -1,10 +1,8 @@
-import 'dart:math';
-
-import 'package:floating_pullup_card/animated_scale.dart';
-import 'package:floating_pullup_card/floating_pullup_card.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import 'animated_scale.dart';
 
 typedef DragHandleBuilder = Widget Function(
   BuildContext context,

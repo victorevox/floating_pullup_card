@@ -68,7 +68,7 @@ class FloatingPullUpCardLayout extends StatefulWidget {
 
   /// Sets a custom function that return a custom `Y Offset`  for state [FloatingPullUpState.uncollapsed]
   /// Please take into account that offset start from top to bottom
-  StateOffsetFunction uncollpsedStateOffset;
+  UncollapsedStateOffsetFunction uncollpsedStateOffset;
 
   /// Defines a callback to be called when a user taps outside the card
   /// If function returns [FloatingPullUpState] it will change state to the returned one
@@ -101,7 +101,7 @@ class FloatingPullUpCardLayout extends StatefulWidget {
     ),
     StateOffsetFunction collpsedStateOffset,
     StateOffsetFunction hiddenStateOffset,
-    StateOffsetFunction uncollpsedStateOffset,
+    UncollapsedStateOffsetFunction uncollpsedStateOffset,
     this.autoPadding = true,
     this.onOutsideTap,
     this.withOverlay = false,
@@ -116,7 +116,7 @@ class FloatingPullUpCardLayout extends StatefulWidget {
     final double maxHeightTest = 10000;
     final double cardHeightTest = 8000;
     assert(
-      this.uncollpsedStateOffset(maxHeightTest, cardHeightTest) <
+      this.uncollpsedStateOffset(maxHeightTest) <
           this.collpsedStateOffset(maxHeightTest, cardHeightTest),
     );
     assert(
@@ -134,9 +134,9 @@ class FloatingPullUpCardLayout extends StatefulWidget {
     return maxHeight;
   };
 
-  final StateOffsetFunction _defaultUncollapsedStateOffset =
-      (double maxHeight, double cardHeight) {
-    return maxHeight - cardHeight;
+  final UncollapsedStateOffsetFunction _defaultUncollapsedStateOffset =
+      (double maxHeight) {
+    return maxHeight * .14;
   };
 
   @override
@@ -266,13 +266,13 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
             _getMaxWidthFromConstraintsOrContext(context, constraints);
         final double maxHeight =
             _getMaxHeightFromConstraintsOrContext(context, constraints);
-        final double height = widget.height ?? maxHeight * .86;
+        final double height = widget.height ?? maxHeight - widget.uncollpsedStateOffset(maxHeight);
         final double width = widget.width ?? maxWidth;
         _stateOffsets = {
           FloatingPullUpState.collapsed:
               widget.collpsedStateOffset(maxHeight, height),
           FloatingPullUpState.uncollapsed:
-              widget.uncollpsedStateOffset(maxHeight, height),
+              widget.uncollpsedStateOffset(maxHeight),
           FloatingPullUpState.hidden:
               widget.hiddenStateOffset(maxHeight, height),
         };

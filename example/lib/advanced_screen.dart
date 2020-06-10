@@ -19,6 +19,7 @@ class _AdvancedScreenState extends State<AdvancedScreen> {
   bool _customCollapsedOffset = false;
   bool _autoPadd = true;
   bool _withOverlay = true;
+  bool _customUncollapsedOffset = false;
 
   @override
   void initState() {
@@ -38,6 +39,8 @@ class _AdvancedScreenState extends State<AdvancedScreen> {
         cardBuilder: _customCard ? _customCardBuilder : null,
         collpsedStateOffset:
             _customCollapsedOffset ? (maxHeight, _) => maxHeight * .75 : null,
+        uncollpsedStateOffset:
+            _customUncollapsedOffset ? (maxHeight) => maxHeight * .05 : null,
         autoPadding: _autoPadd,
         withOverlay: _withOverlay,
         body: Container(
@@ -300,6 +303,27 @@ class _AdvancedScreenState extends State<AdvancedScreen> {
                           onPressed: () {
                             setState(() {
                               _withOverlay = !_withOverlay;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: RaisedButton(
+                          color: Colors.blue,
+                          child: Text(
+                            "Custom uncollapsed Offset: $_customUncollapsedOffset",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _customUncollapsedOffset =
+                                  !_customUncollapsedOffset;
                             });
                           },
                         ),
