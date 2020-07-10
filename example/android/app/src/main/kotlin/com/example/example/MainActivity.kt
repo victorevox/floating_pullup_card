@@ -1,4 +1,4 @@
-package com.example.example
+package com.victorevox.floatinglayout
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

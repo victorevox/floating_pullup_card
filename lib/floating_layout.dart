@@ -1,3 +1,4 @@
+import 'package:floating_pullup_card/helpers.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:floating_pullup_card/animated_translate.dart';
@@ -168,10 +169,6 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
       setState(() {
         _setStateOffset(_currentState);
         _firstStateSet = true;
-        // Future.delayed(Duration(milliseconds: 250)).then((_) {
-        //   setState(() {
-        //   });
-        // });
       });
     });
   }
@@ -266,7 +263,8 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
             _getMaxWidthFromConstraintsOrContext(context, constraints);
         final double maxHeight =
             _getMaxHeightFromConstraintsOrContext(context, constraints);
-        final double height = widget.height ?? maxHeight - widget.uncollpsedStateOffset(maxHeight);
+        final double height = widget.height ??
+            maxHeight - widget.uncollpsedStateOffset(maxHeight);
         final double width = widget.width ?? maxWidth;
         _stateOffsets = {
           FloatingPullUpState.collapsed:
@@ -291,56 +289,68 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
             : 0;
         // print(
         //     "beyondCollapseStateOffset: $beyondCollapseStateOffset, bottomPadding: $bottomPadding, currentState: $_currentState");
-        return Stack(
-          alignment: AlignmentDirectional.center,
-          children: <Widget>[
-            GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: () {
-                if (widget.onOutsideTap != null) {
-                  final FloatingPullUpState res = widget.onOutsideTap();
-                  if (res != null) {
-                    setState(() {
-                      _setStateOffset(res);
-                    });
+        return AnchoredOverlay(
+          showOverlay: _currentState != FloatingPullUpState.hidden,
+          overlayBuilder: (ctx, offset) {
+            return CenterAbout(
+              child: _buildCard(width, height, maxHeight),
+              position: offset.translate(
+                0,
+                offset.dy - widget.uncollpsedStateOffset(maxHeight),
+              ),
+            );
+          },
+          child: Stack(
+            alignment: AlignmentDirectional.center,
+            children: <Widget>[
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  if (widget.onOutsideTap != null) {
+                    final FloatingPullUpState res = widget.onOutsideTap();
+                    if (res != null) {
+                      setState(() {
+                        _setStateOffset(res);
+                      });
+                    }
                   }
-                }
-              },
-              child: Container(
-                // width: maxWidth,
-                // decoration: BoxDecoration(color: Colors.red),
-                padding: EdgeInsets.only(
-                  bottom: bottomPadding,
-                ),
-                constraints: constraints,
-                child: widget.child,
-              ),
-            ),
-            Positioned(
-              top: 0,
-              bottom: 0,
-              left: 0,
-              child: AnimatedOverlay(
-                show: _currentState == FloatingPullUpState.uncollapsed &&
-                    widget.withOverlay,
-                constraints: constraints,
-                color: widget.overlayColor,
-              ),
-            ),
-            Positioned(
-              top: 0,
-              child: AnimatedTranslation(
-                curve: Curves.decelerate,
-                duration: Duration(milliseconds: 350),
-                offset: _currentOffset,
-                child: AnimatedOpacity(
-                  duration: Duration(milliseconds: 280),
-                  opacity: _firstStateSet ? 1 : 0,
-                  child: _cardWidget,
+                },
+                child: Container(
+                  // width: maxWidth,
+                  // decoration: BoxDecoration(color: Colors.red),
+                  // padding: EdgeInsets.only(
+                  //   bottom: bottomPadding,
+                  // ),
+                  constraints: constraints,
+                  child: widget.child,
                 ),
               ),
-            ),
-          ],
+              // Positioned(
+              //   top: 0,
+              //   bottom: 0,
+              //   left: 0,
+              //   child: AnimatedOverlay(
+              //     show: _currentState == FloatingPullUpState.uncollapsed &&
+              //         widget.withOverlay,
+              //     constraints: constraints,
+              //     color: widget.overlayColor,
+              //   ),
+              // ),
+              // Positioned(
+              //   top: 0,
+              //   child: AnimatedTranslation(
+              //     curve: Curves.decelerate,
+              //     duration: Duration(milliseconds: 350),
+              //     offset: _currentOffset,
+              //     child: AnimatedOpacity(
+              //       duration: Duration(milliseconds: 280),
+              //       opacity: _firstStateSet ? 1 : 0,
+              //       child: _cardWidget,
+              //     ),
+              //   ),
+              // ),
+            ],
+          ),
         );
       },
     );
