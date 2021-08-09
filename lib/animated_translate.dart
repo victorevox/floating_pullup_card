@@ -7,14 +7,13 @@ class AnimatedTranslation extends ImplicitlyAnimatedWidget {
   ///
   /// The [offset], [curve], and [duration] arguments must not be null.
   AnimatedTranslation({
-    Key key,
-    @required this.offset,
+    Key? key,
+    required this.offset,
     this.child,
     Curve curve = Curves.linear,
-    @required Duration duration,
-    VoidCallback onEnd,
-  })  : assert(offset != null),
-        super(key: key, curve: curve, duration: duration, onEnd: onEnd);
+    required Duration duration,
+    VoidCallback? onEnd,
+  })  : super(key: key, curve: curve, duration: duration, onEnd: onEnd);
 
   /// The amount of space by which to inset the child.
   final double offset;
@@ -22,7 +21,7 @@ class AnimatedTranslation extends ImplicitlyAnimatedWidget {
   /// The widget below this widget in the tree.
   ///
   /// {@macro flutter.widgets.child}
-  final Widget child;
+  final Widget? child;
 
   @override
   _AnimatedTranslateState createState() => _AnimatedTranslateState();
@@ -31,7 +30,7 @@ class AnimatedTranslation extends ImplicitlyAnimatedWidget {
 
 class _AnimatedTranslateState
     extends AnimatedWidgetBaseState<AnimatedTranslation> {
-  Tween _offset;
+  Tween? _offset;
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
@@ -47,7 +46,7 @@ class _AnimatedTranslateState
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
-      offset: Offset(0, _offset.evaluate(animation)),
+      offset: Offset(0, _offset!.evaluate(animation)),
       child: widget.child,
     );
   }

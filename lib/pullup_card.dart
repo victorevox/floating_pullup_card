@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,7 +9,7 @@ import 'animated_scale.dart';
 typedef DragHandleBuilder = Widget Function(
   BuildContext context,
   BoxConstraints constraints,
-  bool beingDragged,
+  bool? beingDragged,
 );
 
 typedef FloatingCardBuilder = Widget Function(
@@ -15,32 +17,32 @@ typedef FloatingCardBuilder = Widget Function(
   BoxConstraints constraints,
   Widget dragHandler,
   Widget body,
-  bool beingDragged,
+  bool? beingDragged,
 );
 
 class FloatingPullUpCard extends StatefulWidget {
-  final double height;
-  final double width;
+  final double? height;
+  final double? width;
   final Color cardColor;
   final Widget child;
   final GestureDragUpdateCallback onDrag;
   final GestureDragEndCallback onDragEnd;
   final double elevation;
-  final BorderRadius borderRadius;
-  final FloatingCardBuilder cardBuilder;
-  final DragHandleBuilder dragHandlebuilder;
+  final BorderRadius? borderRadius;
+  final FloatingCardBuilder? cardBuilder;
+  final DragHandleBuilder? dragHandlebuilder;
   // final ValueChanged<bool> onDragChange;
 
   const FloatingPullUpCard({
-    Key key,
+    Key? key,
     this.cardBuilder,
     this.cardColor = Colors.white,
     this.height,
     this.width,
     this.borderRadius,
-    @required this.child,
-    @required this.onDrag,
-    @required this.onDragEnd,
+    required this.child,
+    required this.onDrag,
+    required this.onDragEnd,
     this.elevation = 4,
     this.dragHandlebuilder,
     // this.onDragChange,
@@ -51,7 +53,7 @@ class FloatingPullUpCard extends StatefulWidget {
 }
 
 class _FloatingPullUpCardState extends State<FloatingPullUpCard> {
-  bool _beingDragged;
+  bool? _beingDragged;
 
   @override
   void initState() {
@@ -67,7 +69,7 @@ class _FloatingPullUpCardState extends State<FloatingPullUpCard> {
             ? Container(
                 width: widget.width,
                 height: widget.height,
-                child: widget.cardBuilder(
+                child: widget.cardBuilder!(
                   context,
                   constraints,
                   _buildDragHandle(constraints),
@@ -85,7 +87,7 @@ class _FloatingPullUpCardState extends State<FloatingPullUpCard> {
                 widget.width,
                 widget.height,
                 widget.borderRadius,
-                _beingDragged,
+                _beingDragged!,
               );
       },
     );
@@ -95,9 +97,12 @@ class _FloatingPullUpCardState extends State<FloatingPullUpCard> {
     return Container(
       child: GestureDetector(
         dragStartBehavior: DragStartBehavior.start,
-        onVerticalDragUpdate: widget.onDrag,
+        onVerticalDragUpdate: (details) {
+          // print("draggetd ${Random.secure().nextInt(2000).toString()}");
+          widget.onDrag.call(details);
+        },
         onVerticalDragEnd: (details) {
-          widget?.onDragEnd(details);
+          widget.onDragEnd(details);
           _setDragState(false);
         },
         onVerticalDragStart: (_) {
@@ -113,12 +118,12 @@ class _FloatingPullUpCardState extends State<FloatingPullUpCard> {
           _setDragState(true);
         },
         child: widget.dragHandlebuilder != null
-            ? widget.dragHandlebuilder(context, constraints, _beingDragged)
+            ? widget.dragHandlebuilder!(context, constraints, _beingDragged)
             : _defaultDragHandleBuilder(
                 context,
                 constraints,
                 widget.borderRadius,
-                _beingDragged,
+                _beingDragged!,
               ),
       ),
     );
@@ -138,9 +143,9 @@ Widget _defaultCardBuilder(
   Widget child,
   Color cardColor,
   double cardElevation,
-  double defaultWidth,
-  double defaultHeight,
-  BorderRadius borderRadius,
+  double? defaultWidth,
+  double? defaultHeight,
+  BorderRadius? borderRadius,
   bool beingDragged,
 ) {
   // print("Building card ${Random().nextDouble()} $beingDragged");
@@ -167,7 +172,7 @@ Widget _defaultCardBuilder(
 _defaultDragHandleBuilder(
   BuildContext context,
   BoxConstraints constraints,
-  BorderRadius borderRadius,
+  BorderRadius? borderRadius,
   bool beingDragged,
 ) {
   return Container(

@@ -6,14 +6,13 @@ class AnimatedScale extends ImplicitlyAnimatedWidget {
   ///
   /// The [scale], [curve], and [duration] arguments must not be null.
   AnimatedScale({
-    Key key,
-    @required this.scale,
+    Key? key,
+    required this.scale,
     this.child,
     Curve curve = Curves.linear,
-    @required Duration duration,
-    VoidCallback onEnd,
-  })  : assert(scale != null),
-        super(
+    required Duration duration,
+    VoidCallback? onEnd,
+  }) : super(
           key: key,
           curve: curve,
           duration: duration,
@@ -26,19 +25,19 @@ class AnimatedScale extends ImplicitlyAnimatedWidget {
   /// The widget below this widget in the tree.
   ///
   /// {@macro flutter.widgets.child}
-  final Widget child;
+  final Widget? child;
 
   @override
   _AnimatedScaleState createState() => _AnimatedScaleState();
 }
 
 class _AnimatedScaleState extends AnimatedWidgetBaseState<AnimatedScale> {
-  Tween _scale;
+  Tween? _scale;
 
   @override
   Widget build(BuildContext context) {
     return Transform.scale(
-      scale: _scale.evaluate(animation),
+      scale: _scale!.evaluate(animation),
       child: widget.child,
     );
   }
