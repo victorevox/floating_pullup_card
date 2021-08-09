@@ -1,3 +1,7 @@
+## [1.0.0] - 09/08/21
+* Null Safety migration
+* Added some progress for the Overlay logic
+
 ## [0.2.2] - 10/06/20.
 
 * Improve custom uncollapsed function, now card height is calculated based on uncollapsed offset function

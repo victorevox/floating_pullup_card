@@ -1,8 +1,7 @@
-import 'package:floating_pullup_card/animated_translate.dart';
 import 'package:flutter/widgets.dart';
 
+import 'animated_translate.dart';
 import 'floating_pullup_card.dart';
-import 'helpers.dart';
 import 'types.dart';
 
 class FloatingPullUpCardLayout extends StatefulWidget {
@@ -271,9 +270,9 @@ class _FloatingPullUpCardLayoutState extends State<FloatingPullUpCardLayout> {
                     ? (maxHeight - _stateOffsets![_currentState!]!)
                     : 0
             : 0;
-        print(
-          "beyondCollapseStateOffset: $beyondCollapseStateOffset, dif: $dif, maxHeight: $maxHeight, bottomPadding: $bottomPadding, currentState: $_currentState, beingDragged: $_beingDragged",
-        );
+        // print(
+        //   "beyondCollapseStateOffset: $beyondCollapseStateOffset, dif: $dif, maxHeight: $maxHeight, bottomPadding: $bottomPadding, currentState: $_currentState, beingDragged: $_beingDragged",
+        // );
 
         // return AnchoredOverlay(
         //   // offset: Offset(0, widget.uncollpsedStateOffset(maxHeight)),

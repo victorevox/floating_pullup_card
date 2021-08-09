@@ -1,6 +1,6 @@
 name: floating_pullup_card
 description: A beautiful and custom floating pull up style Card for flutter
-version: 0.2.2
+version: 1.0.0
 homepage: https://github.com/victorevox/floating_pullup_card
 
 environment:
