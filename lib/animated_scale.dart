@@ -37,7 +37,7 @@ class _AnimatedScaleState extends AnimatedWidgetBaseState<AnimatedScale> {
   @override
   Widget build(BuildContext context) {
     return Transform.scale(
-      scale: _scale!.evaluate(animation),
+      scale: _scale!.evaluate(animation) as double,
       child: widget.child,
     );
   }

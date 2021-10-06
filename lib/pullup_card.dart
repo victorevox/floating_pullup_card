@@ -1,14 +1,14 @@
 
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart' hide AnimatedScale;
+import 'package:flutter/widgets.dart' hide AnimatedScale;
 
 import 'animated_scale.dart';
 
 typedef DragHandleBuilder = Widget Function(
   BuildContext context,
   BoxConstraints constraints,
-  bool? beingDragged,
+  bool beingDragged,
 );
 
 typedef FloatingCardBuilder = Widget Function(
@@ -16,7 +16,7 @@ typedef FloatingCardBuilder = Widget Function(
   BoxConstraints constraints,
   Widget dragHandler,
   Widget body,
-  bool? beingDragged,
+  bool beingDragged,
 );
 
 class FloatingPullUpCard extends StatefulWidget {
@@ -52,7 +52,7 @@ class FloatingPullUpCard extends StatefulWidget {
 }
 
 class _FloatingPullUpCardState extends State<FloatingPullUpCard> {
-  bool? _beingDragged;
+  late bool _beingDragged;
 
   @override
   void initState() {
@@ -86,7 +86,7 @@ class _FloatingPullUpCardState extends State<FloatingPullUpCard> {
                 widget.width,
                 widget.height,
                 widget.borderRadius,
-                _beingDragged!,
+                _beingDragged,
               );
       },
     );
@@ -122,7 +122,7 @@ class _FloatingPullUpCardState extends State<FloatingPullUpCard> {
                 context,
                 constraints,
                 widget.borderRadius,
-                _beingDragged!,
+                _beingDragged,
               ),
       ),
     );

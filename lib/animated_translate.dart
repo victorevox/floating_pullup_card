@@ -46,7 +46,7 @@ class _AnimatedTranslateState
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
-      offset: Offset(0, _offset!.evaluate(animation)),
+      offset: Offset(0, _offset!.evaluate(animation) as double),
       child: widget.child,
     );
   }

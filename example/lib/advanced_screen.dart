@@ -2,10 +2,10 @@ import 'package:floating_pullup_card/floating_pullup_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_placeholder_textlines/placeholder_lines.dart';
+import 'package:flutter_placeholder_textlines/flutter_placeholder_textlines.dart';
 
 class AdvancedScreen extends StatefulWidget {
-  AdvancedScreen({Key key}) : super(key: key);
+  AdvancedScreen({Key? key}) : super(key: key);
 
   @override
   _AdvancedScreenState createState() => _AdvancedScreenState();
@@ -364,11 +364,11 @@ class CustomCard extends StatelessWidget {
   final bool beingDragged;
 
   const CustomCard({
-    Key key,
-    @required this.dragHandle,
-    @required this.constraints,
-    @required this.beingDragged,
-    @required this.body,
+    Key? key,
+    required this.dragHandle,
+    required this.constraints,
+    required this.beingDragged,
+    required this.body,
   }) : super(key: key);
 
   @override
@@ -416,8 +416,8 @@ class CustomCard extends StatelessWidget {
 class CustomDrag extends StatelessWidget {
   final bool beingDragged;
   const CustomDrag({
-    Key key,
-    this.beingDragged,
+    Key? key,
+    required this.beingDragged,
   }) : super(key: key);
 
   @override
