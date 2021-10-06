@@ -1,3 +1,8 @@
+## [1.1.0] - 06/10/21
+* Null Safety fixes
+* Typing issues
+* Issue: https://github.com/victorevox/floating_pullup_card/issues/2
+
 ## [1.0.0] - 09/08/21
 * Null Safety migration
 * Added some progress for the Overlay logic
