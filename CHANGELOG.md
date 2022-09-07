@@ -1,3 +1,6 @@
+## [1.2.0] - 7/09/22
+* Update to support flutter 3.0.x
+
 ## [1.1.0] - 06/10/21
 * Null Safety fixes
 * Typing issues
