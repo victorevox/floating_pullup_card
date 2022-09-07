@@ -1,7 +1,6 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' hide AnimatedScale;
-import 'package:flutter/widgets.dart' hide AnimatedScale;
 
 import 'animated_scale.dart';
 

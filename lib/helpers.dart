@@ -85,20 +85,20 @@ class _OverlayBuilderState extends State<_OverlayBuilder> {
     super.initState();
 
     if (widget.showOverlay!) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) => showOverlay());
+      WidgetsBinding.instance.addPostFrameCallback((_) => showOverlay());
     }
   }
 
   @override
   void didUpdateWidget(_OverlayBuilder oldWidget) {
     super.didUpdateWidget(oldWidget);
-    WidgetsBinding.instance!.addPostFrameCallback((_) => syncWidgetAndOverlay());
+    WidgetsBinding.instance.addPostFrameCallback((_) => syncWidgetAndOverlay());
   }
 
   @override
   void reassemble() {
     super.reassemble();
-    WidgetsBinding.instance!.addPostFrameCallback((_) => syncWidgetAndOverlay());
+    WidgetsBinding.instance.addPostFrameCallback((_) => syncWidgetAndOverlay());
   }
 
   @override
@@ -174,8 +174,8 @@ class __OverlayState extends State<_Overlay> {
   void initState() { 
     _offset = widget.overlayController.value;
     widget.overlayController.addListener(() {
-      WidgetsBinding.instance?.scheduleFrame();
-      WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      WidgetsBinding.instance.scheduleFrame();
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         if(!mounted) return;
         setState(() {
           _offset = widget.overlayController.value;
